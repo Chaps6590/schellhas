@@ -1,0 +1,72 @@
+import { marca } from './content.js'
+
+// Escenografía conceptual: no representa las instalaciones ni al equipo real.
+// Los datos de contacto se mantienen centralizados en content.js.
+export const scenes = [
+  {
+    id: 'inicio', label: 'Nuestra mirada', room: 'hall', image: '/img/optica-personas.webp',
+    alt: 'Retrato editorial de una mujer con anteojos rojos en una óptica luminosa',
+    title: '135 años mirando Paraná',
+    intro: 'Óptica Schellhas. Personas, antes que anteojos.',
+    description: 'Nos gusta escuchar, encontrar ese armazón que te representa y cuidar cómo ves todos los días.',
+    light: '#ffffff',
+    hotspot: 'Conocé nuestra mirada',
+    details: [{ title: 'El tiempo de escuchar', text: 'Cada persona llega con una forma de mirar y una manera de vivir. Nuestra atención empieza por esa conversación, antes de elegir un armazón o tomar una medida.' }],
+  },
+  {
+    id: 'historia', label: 'La historia', room: 'archive', image: '/img/editorial-oficio.webp',
+    alt: 'Detalle ilustrativo de manos ajustando la bisagra de un anteojo en el taller',
+    title: 'El tiempo cambia. La dedicación queda.',
+    intro: 'Nuestro apellido, nuestra ciudad.',
+    description: '135 años de historia en Paraná. Un oficio que une la precisión con la atención personal.',
+    light: '#ffffff',
+    hotspot: 'Detrás del apellido',
+    details: [{ title: 'Schellhas, en Paraná', text: 'Nuestra historia está ligada a la ciudad y al oficio óptico. La dedicación a cada persona sigue siendo el hilo que conecta el pasado con el trabajo de hoy.' }, { title: 'El oficio permanece', text: 'Los materiales y el equipamiento cambian. Mirar un ajuste de cerca, comprobar una medida y dedicar tiempo a una pregunta siguen formando parte de nuestra manera de trabajar.' }],
+  },
+  {
+    id: 'colecciones', label: 'Las miradas', room: 'fashion', image: '/img/editorial-mirada-mujer.webp',
+    secondaryImage: '/img/editorial-mirada-hombre.webp',
+    alt: 'Retratos editoriales de personas con anteojos de acetato y estilo propio',
+    title: 'Tu mirada tiene carácter.',
+    intro: 'Diseño que se lleva puesto.',
+    description: 'Formas, materiales y personalidad. Anteojos que acompañan cómo ves y cómo te mostrás.',
+    light: '#ff5b63',
+    hotspot: 'Explorá los detalles',
+    details: [{ title: 'Acetato', text: 'Volumen, profundidad de color y formas con presencia. El armazón participa de tu expresión y también necesita adaptarse a tu rostro.' }, { title: 'Metal', text: 'Líneas finas y estructuras de apariencia liviana. El puente, las plaquetas y las patillas también forman parte de la comodidad.' }, { title: 'Tu estilo', text: 'Probá distintas formas y miralas con calma. La elección tiene que sentirse propia: en el espejo, al leer y durante tu día.' }],
+  },
+  {
+    id: 'espacio', label: 'El espacio', room: 'space', image: '/img/optica-local.webp',
+    alt: 'Ambientación ilustrativa de una óptica luminosa con armazones, mostrador y sillas de color',
+    title: 'Pasá. Quedate un rato.',
+    intro: 'Urquiza 1043, Paraná.',
+    description: 'Un lugar para conversar, probar y preguntar. Te esperamos en pleno centro de la ciudad.',
+    light: '#ffffff',
+    hotspot: 'Prepará tu visita',
+    note: 'Ambientación conceptual del recorrido.',
+    details: [{ title: 'Nos encontramos en el centro', text: `${marca.direccion}, ${marca.ciudad}. Podés consultar los horarios por WhatsApp antes de venir.` }, { title: 'Tomate tu tiempo', text: 'Traé tus preguntas y ese anteojo que querés revisar. Podemos conversar sobre el uso, la comodidad, el ajuste y las opciones para tu mirada.' }],
+  },
+  {
+    id: 'atencion', label: 'El oficio', room: 'care', image: '/img/editorial-medicion.webp',
+    alt: 'Escena ilustrativa de atención óptica profesional con instrumental de medición',
+    title: 'Precisión. Cercanía. Confianza.',
+    intro: 'Un buen anteojo empieza por escucharte.',
+    description: 'Medir, ajustar y acompañar. Detrás de cada anteojo hay trabajo profesional y tiempo dedicado a vos.',
+    light: '#ffffff',
+    hotspot: 'Cómo trabajamos',
+    details: [
+      { title: 'Medición', text: 'La posición de tus ojos y la forma en que usás el armazón importan. Las mediciones personalizadas permiten trabajar cada combinación de persona, lente y anteojo.' },
+      { title: 'Ajuste y reparación', text: 'Revisamos el apoyo, las patillas y las bisagras. Evaluamos cada reparación según el material, las piezas y el estado del armazón.' },
+      { title: 'Multifocales', text: 'Acompañamos el uso y la adaptación, con espacio para preguntar, volver y revisar la comodidad. Cada caso necesita una evaluación personal.' },
+    ],
+  },
+  {
+    id: 'contacto', label: 'Paraná, siempre', room: 'river', image: '/img/parana-desde-el-rio.webp',
+    alt: 'Paraná vista desde el río con un atardecer recreado y reflejos sobre el agua',
+    title: 'Tu visión, en buenas manos.',
+    intro: 'Seguimos acá. Mirando hacia adelante.',
+    description: `${marca.direccion}, ${marca.ciudad}. Cuando quieras, pasá a conocernos.`,
+    light: '#ffffff',
+    hotspot: 'Encontranos',
+    details: [{ title: 'Hablemos', text: `${marca.telefonos.join(' / ')}. ${marca.email}. ${marca.horarios}.` }],
+  },
+]

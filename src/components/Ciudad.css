@@ -1,4 +1,50 @@
-.ciudad { padding-block: 36px clamp(80px, 9vw, 140px); }
+.ciudad { position: relative; height: 280vh; }
+.ciudad__sticky {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow: hidden;
+}
+.ciudad__title {
+  position: absolute;
+  top: clamp(96px, 12vh, 132px);
+  left: 0;
+  right: 0;
+  padding-inline: var(--gutter);
+  text-align: center;
+  font-size: clamp(1.9rem, 3.6vw, 3.4rem);
+}
+.ciudad__frame { position: absolute; inset: 0; will-change: clip-path; }
+.ciudad__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.ciudad__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(16 12 12 / 0.85), rgb(16 12 12 / 0.18) 40%, transparent 65%);
+}
+.ciudad__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(28px, 7vh, 80px);
+  color: var(--on-photo);
+}
+.ciudad__caption > p:first-child {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.7rem);
+  line-height: 1.2;
+  max-width: 28ch;
+  text-wrap: balance;
+}
+.ciudad__credit { margin-top: 20px; font-size: 0.72rem; line-height: 1.6; }
+.ciudad__credit a { text-decoration: underline; text-underline-offset: 3px; }
+.ciudad--static { height: auto; padding-block: 36px clamp(80px, 9vw, 140px); }
 .ciudad__heading {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -11,27 +57,18 @@
 .ciudad__heading .eyebrow { color: var(--accent); margin-bottom: 16px; }
 .ciudad__heading .display { font-size: clamp(2.5rem, 4.2vw, 4rem); }
 .ciudad__heading .lead { max-width: 42ch; justify-self: end; }
-.ciudad__figure { margin: 0; }
-.ciudad__img {
-  width: 100%;
+.ciudad--static .ciudad__img {
+  position: static;
   height: auto;
-  aspect-ratio: 2 / 1;
-  object-fit: cover;
-  object-position: 50% 65%;
+  aspect-ratio: 16 / 9;
   border-radius: var(--radius);
 }
-.ciudad__figure figcaption {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px 24px;
-  margin-top: 14px;
-  color: var(--ink-soft);
-  font-size: 0.72rem;
-}
-.ciudad__figure figcaption a { text-decoration: underline; text-underline-offset: 3px; }
+.ciudad--static .ciudad__credit { color: var(--ink-soft); margin-top: 14px; }
 @media (max-width: 767px) {
+  .ciudad { height: 230vh; }
+  .ciudad__img { object-position: 56% 50%; }
   .ciudad__heading { grid-template-columns: 1fr; gap: 22px; padding-top: 28px; }
   .ciudad__heading .lead { justify-self: start; }
-  .ciudad__img { aspect-ratio: 4 / 3; object-position: 42% 65%; }
+  .ciudad--static { height: auto; }
+  .ciudad--static .ciudad__img { aspect-ratio: 4 / 3; }
 }

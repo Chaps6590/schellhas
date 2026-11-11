@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
+import { useEffect, useRef, useState } from 'react'
 import { List, WhatsappLogo, X } from '@phosphor-icons/react'
 import Logo from './Logo.jsx'
 import { nav, waLink } from '../content.js'
@@ -8,14 +7,16 @@ import './Nav.css'
 const WA = waLink('Hola! Les escribo desde la web.')
 
 export default function Nav() {
-  const [solid, setSolid] = useState(false)
   const [open, setOpen] = useState(false)
-  const { scrollY } = useScroll()
+  const dialogRef = useRef(null)
+  const toggleRef = useRef(null)
 
-  // Sobre la foto del hero la barra es transparente; despues toma el fondo de la pagina.
-  useMotionValueEvent(scrollY, 'change', (v) => {
-    setSolid(v > window.innerHeight - 90)
-  })
+  function navigate(event, id) {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    event.preventDefault()
+    setOpen(false)
+    window.dispatchEvent(new CustomEvent('schellhas:navigate', { detail: id }))
+  }
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -24,17 +25,38 @@ export default function Nav() {
     }
   }, [open])
 
+  useEffect(() => {
+    if (!open) return
+    const dialog = dialogRef.current
+    const focusable = () => Array.from(dialog.querySelectorAll('a[href], button'))
+    focusable()[0]?.focus()
+    function handleKey(event) {
+      if (event.key === 'Escape') { setOpen(false); return }
+      if (event.key !== 'Tab') return
+      const elements = focusable()
+      const first = elements[0]
+      const last = elements[elements.length - 1]
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+      if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('keydown', handleKey)
+      toggleRef.current?.focus({ preventScroll: true })
+    }
+  }, [open])
+
   return (
     <>
-      <header className={`nav ${solid ? 'nav--solid' : ''}`}>
+      <header className="nav nav--solid">
         <div className="nav__inner wrap">
-          <a href="#inicio" className="nav__logo">
+          <a href="#inicio" className="nav__logo" onClick={event => navigate(event, 'inicio')}>
             <Logo />
           </a>
 
           <nav className="nav__links" aria-label="Secciones">
             {nav.map((item) => (
-              <a key={item.id} href={`#${item.id}`}>
+              <a key={item.id} href={`#${item.id}`} onClick={event => navigate(event, item.id)}>
                 {item.label}
               </a>
             ))}
@@ -46,6 +68,7 @@ export default function Nav() {
           </a>
 
           <button
+            ref={toggleRef}
             className="nav__toggle"
             aria-label="Abrir menú"
             aria-expanded={open}
@@ -56,17 +79,14 @@ export default function Nav() {
         </div>
       </header>
 
-      <AnimatePresence>
         {open && (
-          <motion.div
+          <div
+            ref={dialogRef}
+            data-lenis-prevent
             className="menu"
             role="dialog"
             aria-modal="true"
             aria-label="Menú"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
           >
             <div className="menu__top wrap">
               <Logo />
@@ -75,17 +95,14 @@ export default function Nav() {
               </button>
             </div>
             <nav className="menu__links wrap" aria-label="Secciones">
-              {nav.map((item, i) => (
-                <motion.a
+              {nav.map((item) => (
+                <a
                   key={item.id}
                   href={`#${item.id}`}
-                  onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.05 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={event => navigate(event, item.id)}
                 >
                   {item.label}
-                </motion.a>
+                </a>
               ))}
             </nav>
             <div className="menu__bottom wrap">
@@ -94,9 +111,8 @@ export default function Nav() {
                 Escribinos
               </a>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </>
   )
 }

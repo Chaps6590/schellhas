@@ -2,16 +2,15 @@
 @import '@fontsource-variable/cormorant-garamond/wght.css';
 @import '@fontsource-variable/cormorant-garamond/wght-italic.css';
 
-/* Tokens. El bordo sale del logo de la marca; los neutros son frios para
-   que las fotos en hora dorada sean lo unico calido de la pagina. */
+/* Una óptica contemporánea: fotografía natural, grafito y acentos coral. */
 :root {
-  --bg: #f2f2f0;
-  --bg-alt: #e8e8e5;
-  --ink: #17161a;
-  --ink-soft: #55535b;
-  --line: rgb(23 22 26 / 0.14);
-  --accent: #6f1d2b;
-  --accent-ink: #f6f3f3;
+  --bg: #191c20;
+  --bg-alt: #242a2d;
+  --ink: #fafaf8;
+  --ink-soft: #c5cbc8;
+  --line: rgb(210 217 211 / 0.2);
+  --accent: #f36960;
+  --accent-ink: #191c20;
   --on-photo: #f6f4f1;
 
   --font-display: 'Cormorant Garamond Variable', 'Times New Roman', serif;
@@ -32,13 +31,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #141316;
-    --bg-alt: #1d1c20;
-    --ink: #eeecea;
-    --ink-soft: #a9a6ad;
-    --line: rgb(238 236 234 / 0.16);
-    --accent: #c9596c;
-    --accent-ink: #1a0b0e;
+    color-scheme: dark;
   }
 }
 
@@ -65,6 +58,13 @@ body {
   overflow-x: clip;
   -webkit-tap-highlight-color: transparent;
 }
+
+.skip-link { position: fixed; top: 12px; left: 20px; z-index: 60; padding: 12px 20px; background: var(--ink); color: var(--bg); transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+button, a { touch-action: manipulation; }
+[id] { scroll-margin-top: 80px; }
+.journey__anchor { scroll-margin-top: 0; }
+.exhibit [id] { scroll-margin-top: 0; }
 
 img {
   display: block;

@@ -1,33 +1,14 @@
-import { MotionConfig } from 'motion/react'
-import { useSmoothScroll } from './hooks/useSmoothScroll.js'
 import Nav from './components/Nav.jsx'
-import Hero from './components/Hero.jsx'
-import Manifiesto from './components/Manifiesto.jsx'
-import Ciudad from './components/Ciudad.jsx'
-import Historia from './components/Historia.jsx'
-import Espacio from './components/Espacio.jsx'
-import Especialidad from './components/Especialidad.jsx'
-import Marcas from './components/Marcas.jsx'
-import GiftCard from './components/GiftCard.jsx'
-import Contacto from './components/Contacto.jsx'
+import Recorrido from './components/Recorrido.jsx'
 
 export default function App() {
-  useSmoothScroll()
-
   return (
-    <MotionConfig reducedMotion="user">
+    <>
+      <a className="skip-link" href="#atencion" onClick={event => { event.preventDefault(); window.dispatchEvent(new CustomEvent('schellhas:navigate', { detail: 'atencion' })) }}>Ir a la atención profesional</a>
       <Nav />
       <main>
-        <Hero />
-        <Manifiesto />
-        <Ciudad />
-        <Historia />
-        <Espacio />
-        <Especialidad />
-        <Marcas />
-        <GiftCard />
+        <Recorrido />
       </main>
-      <Contacto />
-    </MotionConfig>
+    </>
   )
 }

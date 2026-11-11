@@ -43,7 +43,7 @@ export default function Contacto() {
             <InstagramLogo size={22} />
             <span>
               <strong>@optica.schellhas.pna</strong>
-              Novedades y colecciones
+              Miradas y novedades del local
             </span>
             <ArrowUpRight size={18} className="cont__arrow" />
           </a>
@@ -77,6 +77,7 @@ export default function Contacto() {
         </span>
         <span>{marca.lema}</span>
       </div>
+      <p className="cont__imagery wrap">Los retratos y las escenas de oficio y ambientación son imágenes ilustrativas.</p>
     </footer>
   )
 }
