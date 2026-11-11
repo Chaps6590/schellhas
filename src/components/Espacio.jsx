@@ -45,6 +45,7 @@ export default function Espacio() {
       <Foto imagen={grande} clase="esp__fig--a" />
 
       <div className="esp__text">
+        <p className="eyebrow">Te esperamos en el centro</p>
         <h2 className="display">{espacio.titulo}</h2>
         <p className="lead">{espacio.texto}</p>
         <a className="esp__dir" href={marca.mapa} target="_blank" rel="noreferrer">
@@ -58,6 +59,7 @@ export default function Espacio() {
 
       <Foto imagen={alta} clase="esp__fig--b" demora={0.1} />
       <Foto imagen={chica} clase="esp__fig--c" demora={0.15} />
+      <p className="esp__note">El diseño y el oficio, de cerca. Imágenes ilustrativas.</p>
     </section>
   )
 }

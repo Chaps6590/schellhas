@@ -1,6 +1,7 @@
 // Todo el contenido editable del sitio vive aca.
-// Las fotos en /public/img son PROVISORIAS (stock libre de Unsplash):
-// reemplazarlas por fotos reales del local manteniendo el mismo nombre de archivo.
+// Las fotos editorial-* son imágenes ilustrativas generadas con Higgsfield.
+// No representan el local, su personal ni productos confirmados del catálogo.
+// Créditos de la fotografía real de Paraná: /public/img/CREDITOS.md.
 
 const WHATSAPP = '5493434715911'
 
@@ -43,10 +44,10 @@ export const manifiesto = {
   texto:
     'En Schellhas no se vende un armazón: se conversa, se mide, se prueba. Así lo hacemos desde siempre.',
   imagenes: [
-    { src: '/img/espacio-vitrina.webp', alt: 'Anteojos exhibidos en una vitrina de madera iluminada' },
-    { src: '/img/detalle-madera.webp', alt: 'Anteojos redondos apoyados sobre una mesa de madera' },
-    { src: '/img/retrato-sol.webp', alt: 'Mujer con anteojos de armazón transparente a contraluz' },
-    { src: '/img/historia-armazon.webp', alt: 'Armazón negro clásico en blanco y negro' },
+    { src: '/img/editorial-armazon.webp', alt: 'Armazón de acetato color miel sobre una base de piedra clara', epigrafe: 'Una elección personal' },
+    { src: '/img/editorial-oficio.webp', alt: 'Manos ajustando con precisión la bisagra de un armazón', epigrafe: 'El valor del oficio' },
+    { src: '/img/editorial-retrato.webp', alt: 'Retrato de una mujer con anteojos color bordó y camisa de lino', epigrafe: 'Tu forma de mirar' },
+    { src: '/img/editorial-detalle.webp', alt: 'Armazones de metal y acetato sobre una tela de lino natural', epigrafe: 'Los pequeños detalles' },
   ],
 }
 
@@ -54,8 +55,9 @@ export const ciudad = {
   titulo: 'Paraná, nuestra ciudad',
   texto:
     'Frente al mismo río, generación tras generación. La ciudad cambió y nosotros con ella, sin movernos del centro.',
-  imagen: '/img/rio.webp',
-  alt: 'Atardecer dorado reflejado sobre un río',
+  imagen: '/img/parana-costanera.webp',
+  alt: 'Mirador de la costanera de Paraná junto al río al atardecer',
+  fuente: 'https://commons.wikimedia.org/wiki/File:Costanera_de_Parana.jpg',
 }
 
 // TODO: capítulos redactados como borrador. Reemplazar por los hitos reales
@@ -92,8 +94,8 @@ export const historia = {
       titulo: 'Tecnología nueva, la misma atención',
       texto:
         'Sumamos equipamiento de medición digital y lentes de última generación. Lo que no cambió es el tiempo que le dedicamos a cada persona.',
-      imagen: '/img/servicio-equipo.webp',
-      alt: 'Persona mirando a través de un equipo de examen visual',
+      imagen: '/img/editorial-medicion.webp',
+      alt: 'Escena ilustrativa de atención personalizada con un equipo de medición visual',
     },
   ],
 }
@@ -102,9 +104,9 @@ export const espacio = {
   titulo: 'Un local para recorrer sin apuro',
   texto: 'Urquiza 1043, en pleno centro. Pasá, probate lo que quieras y preguntá todo.',
   imagenes: [
-    { src: '/img/espacio-pared.webp', alt: 'Pared de exhibición con armazones bajo luz cálida' },
-    { src: '/img/espacio-vidriera.webp', alt: 'Vidriera con anteojos de sol exhibidos' },
-    { src: '/img/espacio-vitrina.webp', alt: 'Estante de madera iluminado con anteojos' },
+    { src: '/img/editorial-seleccion.webp', alt: 'Selección ilustrativa de armazones sobre bases de piedra y madera' },
+    { src: '/img/editorial-detalle.webp', alt: 'Detalle de armazones sobre lino natural' },
+    { src: '/img/editorial-oficio.webp', alt: 'Detalle del ajuste manual de un armazón' },
   ],
 }
 

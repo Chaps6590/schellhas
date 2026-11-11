@@ -2,8 +2,8 @@
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: clamp(16px, 2.4vw, 36px);
-  row-gap: clamp(40px, 7vw, 110px);
-  padding-block: clamp(96px, 16vh, 200px);
+  row-gap: clamp(28px, 4vw, 64px);
+  padding-block: clamp(80px, 9vw, 140px);
 }
 
 .esp__fig {
@@ -31,8 +31,9 @@
 }
 
 .esp__text {
-  grid-column: 9 / span 4;
-  align-self: end;
+  grid-column: 9 / -1;
+  min-width: 0;
+  align-self: center;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -51,7 +52,13 @@
   font-weight: 500;
   border-bottom: 1px solid var(--line);
   transition: border-color 0.3s var(--ease);
+  max-width: 100%;
 }
+
+.esp__text .eyebrow { color: var(--accent); }
+.esp__dir span { min-width: 0; }
+.esp__dir svg { flex-shrink: 0; }
+.esp__note { grid-column: 1 / -1; color: var(--ink-soft); font-size: 0.75rem; }
 
 .esp__dir svg:last-child {
   transition: transform 0.3s var(--ease);
@@ -68,13 +75,18 @@
 
 .esp__fig--b {
   grid-column: 2 / span 4;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 5 / 4;
 }
 
 .esp__fig--c {
   grid-column: 7 / span 6;
   aspect-ratio: 4 / 3;
-  margin-top: clamp(60px, 12vw, 200px);
+  margin-top: clamp(24px, 4vw, 64px);
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .esp__fig--a { grid-column: 1 / span 6; }
+  .esp__text { grid-column: 7 / -1; }
 }
 
 @media (max-width: 767px) {

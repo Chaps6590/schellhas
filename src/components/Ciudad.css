@@ -1,87 +1,37 @@
-.ciudad {
-  position: relative;
-  height: 280vh;
+.ciudad { padding-block: 36px clamp(80px, 9vw, 140px); }
+.ciudad__heading {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: end;
+  gap: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+  margin-bottom: 36px;
 }
-
-.ciudad__sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
-}
-
-.ciudad__title {
-  position: absolute;
-  top: clamp(84px, 11vh, 120px);
-  left: 0;
-  right: 0;
-  padding-inline: var(--gutter);
-  text-align: center;
-  font-size: clamp(1.9rem, 3.6vw, 3.4rem);
-}
-
-.ciudad__frame {
-  position: absolute;
-  inset: 0;
-  will-change: clip-path;
-}
-
+.ciudad__heading .eyebrow { color: var(--accent); margin-bottom: 16px; }
+.ciudad__heading .display { font-size: clamp(2.5rem, 4.2vw, 4rem); }
+.ciudad__heading .lead { max-width: 42ch; justify-self: end; }
+.ciudad__figure { margin: 0; }
 .ciudad__img {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 62%;
-}
-
-.ciudad__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgb(16 12 12 / 0.72), transparent 55%);
-}
-
-.ciudad__caption {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: clamp(36px, 8vh, 88px);
-  color: var(--on-photo);
-}
-
-.ciudad__caption p {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.7rem);
-  line-height: 1.2;
-  max-width: 24ch;
-  text-wrap: balance;
-}
-
-/* Version sin movimiento */
-.ciudad--static {
   height: auto;
-  min-height: 90vh;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  object-position: 50% 65%;
+  border-radius: var(--radius);
+}
+.ciudad__figure figcaption {
   display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: 14px;
+  color: var(--ink-soft);
+  font-size: 0.72rem;
 }
-
-.ciudad--static .ciudad__caption {
-  position: relative;
-  bottom: auto;
-  padding-block: 64px;
-}
-
-.ciudad--static .ciudad__caption p {
-  margin-top: 16px;
-  font-family: var(--font-body);
-  font-size: 1.15rem;
-  max-width: 44ch;
-}
-
+.ciudad__figure figcaption a { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 767px) {
-  .ciudad {
-    height: 230vh;
-  }
+  .ciudad__heading { grid-template-columns: 1fr; gap: 22px; padding-top: 28px; }
+  .ciudad__heading .lead { justify-self: start; }
+  .ciudad__img { aspect-ratio: 4 / 3; object-position: 42% 65%; }
 }
