@@ -1,0 +1,69 @@
+.marcas {
+  padding-block: clamp(88px, 13vh, 160px);
+  overflow: hidden;
+}
+
+.marcas__title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+  margin-bottom: clamp(28px, 5vh, 56px);
+}
+
+.marcas__belt {
+  display: flex;
+  width: max-content;
+}
+
+.marcas__row {
+  display: flex;
+  flex-shrink: 0;
+  animation: marcas-pan 38s linear infinite;
+}
+
+.marcas__row span {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 7vw, 6.4rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  padding-inline: clamp(22px, 3.4vw, 60px);
+}
+
+.marcas__row span:nth-child(even) {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+@media (hover: hover) {
+  .marcas__belt:hover .marcas__row {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marcas-pan {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Sin movimiento: las marcas se muestran quietas, en varias lineas */
+@media (prefers-reduced-motion: reduce) {
+  .marcas__belt {
+    width: auto;
+    padding-inline: var(--gutter);
+  }
+  .marcas__row {
+    flex-wrap: wrap;
+    animation: none;
+  }
+  .marcas__row + .marcas__row {
+    display: none;
+  }
+  .marcas__row span {
+    padding-inline: 0 28px;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+  }
+}

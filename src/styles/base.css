@@ -1,0 +1,212 @@
+@import '@fontsource-variable/outfit';
+@import '@fontsource-variable/cormorant-garamond/wght.css';
+@import '@fontsource-variable/cormorant-garamond/wght-italic.css';
+
+/* Tokens. El bordo sale del logo de la marca; los neutros son frios para
+   que las fotos en hora dorada sean lo unico calido de la pagina. */
+:root {
+  --bg: #f2f2f0;
+  --bg-alt: #e8e8e5;
+  --ink: #17161a;
+  --ink-soft: #55535b;
+  --line: rgb(23 22 26 / 0.14);
+  --accent: #6f1d2b;
+  --accent-ink: #f6f3f3;
+  --on-photo: #f6f4f1;
+
+  --font-display: 'Cormorant Garamond Variable', 'Times New Roman', serif;
+  --font-body: 'Outfit Variable', system-ui, sans-serif;
+
+  /* Radios: imagenes y tarjetas 4px, controles en pildora. */
+  --radius: 4px;
+  --pill: 999px;
+
+  --gutter: clamp(20px, 4vw, 64px);
+  --max: 1400px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Capas */
+  --z-nav: 40;
+  --z-menu: 50;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141316;
+    --bg-alt: #1d1c20;
+    --ink: #eeecea;
+    --ink-soft: #a9a6ad;
+    --line: rgb(238 236 234 / 0.16);
+    --accent: #c9596c;
+    --accent-ink: #1a0b0e;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 350;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Tipografia */
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 5.4vw, 5rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.display em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  /* reserva para descendentes de la cursiva */
+  padding-bottom: 0.08em;
+}
+
+.lead {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  color: var(--ink-soft);
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: var(--pill);
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    transform 0.25s var(--ease),
+    background-color 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--solid {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn--light {
+  background: var(--on-photo);
+  color: #17161a;
+}
+
+.btn--ghost {
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.btn svg {
+  transition: transform 0.25s var(--ease);
+}
+
+@media (hover: hover) {
+  .btn:hover svg {
+    transform: translateX(3px);
+  }
+  .btn--ghost:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+}
+
+.foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
