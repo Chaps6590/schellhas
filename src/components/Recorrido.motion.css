@@ -1,0 +1,80 @@
+/* Movimiento e interacciones del recorrido. Se carga después de Recorrido.css. */
+
+/* Texto de cada escena: entra escalonado según --p (0 a 1) y --dir (de qué lado llega). */
+.exhibit__copy > * {
+  opacity: clamp(0, calc(var(--p, 1) * 2.2 - var(--i, 0) * 0.2), 1);
+  translate: 0 calc((1 - var(--p, 1)) * var(--dir, 1) * (26px + var(--i, 0) * 16px));
+}
+.exhibit__copy > :nth-child(1) { --i: 0; }
+.exhibit__copy > :nth-child(2) { --i: 1; }
+.exhibit__copy > :nth-child(3) { --i: 2; }
+.exhibit__copy > :nth-child(4) { --i: 3; }
+.exhibit__copy > :nth-child(5) { --i: 4; }
+.exhibit__copy > :nth-child(6) { --i: 5; }
+
+/* El hilo: trazo luminoso que cruza la pantalla entre una parada y la siguiente. */
+.exhibit__wayline { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+.exhibit__way { fill: none; stroke-linecap: round; stroke-dasharray: 0.34 3; stroke-dashoffset: 0.34; opacity: 0; }
+.exhibit__way--glow { stroke: #f36960; stroke-width: 10; }
+.exhibit__way--core { stroke: #ffd9d4; stroke-width: 2.2; }
+.exhibit__way-head { opacity: 0; }
+.exhibit__way-head circle:first-child { fill: rgb(243 105 96 / 0.35); }
+.exhibit__way-head circle:last-child { fill: #fff; }
+
+/* Foco de luz que sigue al cursor, como una lámpara de taller. */
+.exhibit__spot { position: absolute; left: 0; top: 0; width: min(80vw, 900px); aspect-ratio: 1; border-radius: 50%; pointer-events: none; opacity: 0; transition: opacity 600ms var(--ease); background: radial-gradient(closest-side, rgb(255 236 226 / 0.13), rgb(255 236 226 / 0.04) 55%, transparent); will-change: transform, opacity; }
+.exhibit__spot.is-live { opacity: 1; }
+
+/* Número y nombre de la parada: cambian con un deslizamiento corto. */
+.exhibit__set-label > span { animation: exhibit-label-in 700ms var(--ease) both; }
+.exhibit__set-label > span:last-child { animation-delay: 70ms; }
+@keyframes exhibit-label-in { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+
+/* Punto de interés: respira, y el "+" gira a "x" al abrirse. */
+.exhibit__hotspot-plus { position: relative; }
+.exhibit__hotspot-plus::after { content: ''; position: absolute; inset: -1px; border-radius: 50%; border: 1px solid rgb(239 246 255 / 0.55); animation: exhibit-ping 2.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite; pointer-events: none; }
+.exhibit__hotspot[aria-expanded='true'] .exhibit__hotspot-plus::after { animation: none; opacity: 0; }
+.exhibit__hotspot-plus svg { transition: rotate 400ms var(--ease); }
+.exhibit__hotspot[aria-expanded='true'] .exhibit__hotspot-plus svg { rotate: 135deg; }
+@keyframes exhibit-ping { 0% { transform: scale(1); opacity: 0.9; } 70%, 100% { transform: scale(1.9); opacity: 0; } }
+
+/* Panel de información: entra deslizando y su contenido aparece en cascada. */
+.exhibit__detail { animation: exhibit-panel-in 520ms var(--ease) both; }
+.exhibit__detail > * { animation: exhibit-rise 600ms var(--ease) both; }
+.exhibit__detail > :nth-child(2) { animation-delay: 60ms; }
+.exhibit__detail > :nth-child(3) { animation-delay: 110ms; }
+.exhibit__detail > :nth-child(4) { animation-delay: 160ms; }
+.exhibit__detail > :nth-child(n + 5) { animation-delay: 210ms; }
+@keyframes exhibit-panel-in { from { opacity: 0; translate: 28px 0; clip-path: inset(0 0 0 12%); } to { opacity: 1; translate: 0 0; clip-path: inset(0); } }
+@keyframes exhibit-rise { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
+
+/* Invitación a scrollear: la flecha late y desaparece una vez que arrancó el recorrido. */
+.exhibit__hint { transition: opacity 500ms var(--ease); }
+.exhibit__hint svg { animation: exhibit-bob 1.8s ease-in-out infinite; }
+.exhibit__viewport:not([data-active='0']) .exhibit__hint { opacity: 0; }
+@keyframes exhibit-bob { 0%, 100% { translate: 0 -2px; } 50% { translate: 0 4px; } }
+
+/* Botones: respuesta táctil. */
+.exhibit button:active, .exhibit a:active { opacity: 1; }
+.exhibit__arrows button, .exhibit__enter, .exhibit__cta, .exhibit__hotspot { transition: background 180ms var(--ease), scale 160ms var(--ease), color 180ms var(--ease); }
+.exhibit__arrows button:not(:disabled):active, .exhibit__cta:active, .exhibit__enter:active, .exhibit__hotspot:active { scale: 0.95; }
+.exhibit__cta svg:last-child { transition: translate 220ms var(--ease); }
+.exhibit__map, .exhibit__enter { position: relative; }
+.exhibit__map::after { content: ''; position: absolute; left: 0; right: 0; bottom: 6px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 350ms var(--ease); }
+.exhibit__copy > .exhibit__map::after { display: none; }
+.exhibit__instagram svg { transition: rotate 400ms var(--ease), scale 250ms var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  .exhibit__cta:hover svg:last-child { translate: 3px -3px; }
+  .exhibit__map:hover::after { transform: scaleX(1); }
+  .exhibit__instagram:hover svg { rotate: 12deg; scale: 1.15; }
+  .exhibit__steps button:hover .exhibit__stop { transform: scale(1.35); border-color: #fff; }
+  .exhibit__steps button:hover .exhibit__step-label { opacity: 1; }
+  .exhibit__enter:hover { border-bottom-color: #f36960; }
+}
+
+/* Lectura manual: cada bloque aparece al entrar en pantalla (si el navegador lo soporta). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .exhibit-reading__content > *, .exhibit-reading__details section { animation: exhibit-rise linear both; animation-timeline: view(); animation-range: entry 5% entry 70%; }
+  }
+}

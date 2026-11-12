@@ -28,6 +28,7 @@ export const nav = [
   { id: 'colecciones', label: 'Las miradas' },
   { id: 'espacio', label: 'El espacio' },
   { id: 'atencion', label: 'El oficio' },
+  { id: 'regalos', label: 'Regalos' },
   { id: 'contacto', label: 'Encontranos' },
 ]
 

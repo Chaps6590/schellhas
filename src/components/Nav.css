@@ -10,12 +10,22 @@
     box-shadow 0.4s var(--ease);
 }
 
+/* Barra transparente: la fotografía llega hasta el borde superior de la pantalla. */
 .nav--solid {
   color: var(--ink);
-  background: rgb(25 28 32 / 0.55);
+  background: transparent;
+  text-shadow: 0 1px 16px rgb(0 0 0 / 0.4);
+}
+
+.nav--solid .nav__cta { text-shadow: none; }
+
+/* En la versión de lectura el contenido pasa por debajo, así que vuelve a ser sólida. */
+body:has(.exhibit--reading) .nav--solid {
+  background: rgb(25 28 32 / 0.88);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 var(--line);
+  text-shadow: none;
 }
 
 .nav__inner {
@@ -55,6 +65,33 @@
   .nav__links a:hover::after {
     transform: scaleX(1);
   }
+}
+
+/* Parada actual del camino */
+.nav__links a[aria-current='location']::after {
+  transform: scaleX(1);
+  background: var(--accent);
+  height: 2px;
+}
+
+/* Entrada de la barra al cargar */
+.nav { animation: nav-in 900ms var(--ease) 150ms both; }
+@keyframes nav-in {
+  from { opacity: 0; translate: 0 -100%; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+/* Menú móvil: los vínculos entran en cascada y se marca la parada actual */
+.menu__links a {
+  animation: menu-link-in 650ms var(--ease) both;
+  animation-delay: calc(80ms + var(--n, 0) * 60ms);
+}
+.menu__links a[aria-current='location'] {
+  color: var(--accent);
+}
+@keyframes menu-link-in {
+  from { opacity: 0; translate: 0 22px; }
+  to { opacity: 1; translate: 0 0; }
 }
 
 .nav__cta {

@@ -3,27 +3,8 @@
 .exhibit__viewport {
   height: 100svh; width: 100%; position: relative;
   overflow: hidden; isolation: isolate;
-  perspective: max(700px, 100vw);
   background: #191c20;
 }
-.exhibit__look, .exhibit__dolly, .exhibit__rotor, .exhibit__set { position: absolute; inset: 0; transform-style: preserve-3d; }
-.exhibit__rotor { will-change: transform; }
-.exhibit__set { backface-visibility: hidden; }
-.exhibit__architecture { position: absolute; inset: 72px -0.5% -1%; overflow: hidden; background: #191c20; }
-.exhibit__backdrop { width: 100%; height: 100%; object-fit: cover; object-position: center top; transform-origin: center top; }
-.exhibit__room-shade { position: absolute; inset: 0; background: linear-gradient(90deg, #191c20 5%, rgb(25 28 32 / 0.88) 27%, transparent 66%); }
-.exhibit__set--hall .exhibit__room-shade { background: linear-gradient(90deg, rgb(25 28 32 / 0.3), transparent 60%); }
-.exhibit__set--archive .exhibit__room-shade { background: linear-gradient(90deg, #191c20, rgb(25 28 32 / 0.86) 32%, rgb(25 28 32 / 0.08) 75%); }
-.exhibit__set--fashion .exhibit__backdrop { position: absolute; right: 27%; width: 31%; object-position: 50% 32%; }
-.exhibit__portrait-companion { position: absolute; right: 0; top: 0; width: 27%; height: 100%; object-fit: cover; object-position: 50% 32%; }
-.exhibit__set--fashion .exhibit__room-shade { background: linear-gradient(90deg, #191c20 20%, rgb(25 28 32 / 0.75) 40%, transparent 65%); }
-.exhibit__set--space .exhibit__room-shade { background: linear-gradient(90deg, rgb(25 28 32 / 0.76), rgb(25 28 32 / 0.08) 62%); }
-.exhibit__set--care .exhibit__room-shade { background: linear-gradient(90deg, rgb(25 28 32 / 0.82), rgb(25 28 32 / 0.05) 70%); }
-.exhibit__set--river .exhibit__room-shade { background: linear-gradient(90deg, rgb(25 28 32 / 0.88), rgb(25 28 32 / 0.18) 75%); }
-.exhibit__light { position: absolute; inset: -20% 0; pointer-events: none; transform: translateZ(10px); }
-.exhibit__light span { position: absolute; left: 50%; top: -20%; width: 22%; height: 130%; background: linear-gradient(90deg, transparent, var(--room-light), transparent); opacity: 0.025; transform: rotate(24deg); filter: blur(20px); animation: exhibit-light 28s ease-in-out infinite alternate; }
-.exhibit__light span + span { left: 80%; opacity: 0.03; animation-delay: -12s; width: 8%; }
-@keyframes exhibit-light { from { transform: translateX(-10%) rotate(24deg); opacity: 0.015; } to { transform: translateX(30%) rotate(15deg); opacity: 0.04; } }
 .exhibit__vignette { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(25 28 32 / 0.25), transparent 20%, transparent 65%, rgb(25 28 32 / 0.9)), radial-gradient(ellipse at 60% 45%, transparent 40%, rgb(25 28 32 / 0.25)); }
 .exhibit__copies { position: absolute; inset: 0; pointer-events: none; }
 .exhibit__copy { position: absolute; left: var(--gutter); top: 50%; transform: translateY(-50%); width: min(46vw, 660px); padding: 62px 0 70px; visibility: hidden; pointer-events: none; }
@@ -48,11 +29,20 @@
 .exhibit__controls { position: absolute; left: var(--gutter); right: var(--gutter); bottom: calc(50px + env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .exhibit__hint { display: flex; align-items: center; gap: 12px; color: #bcbfbe; font-size: 0.7rem; max-width: 145px; }
 .exhibit__hint svg { flex-shrink: 0; }
-.exhibit__steps { display: flex; gap: clamp(10px, 1.5vw, 24px); }
-.exhibit__steps button { display: flex; align-items: center; gap: 7px; min-width: 38px; min-height: 44px; color: #a9afae; font-size: 0.67rem; transition: color 180ms var(--ease); }
-.exhibit__steps button > span:first-child { font-size: 0.65rem; font-variant-numeric: tabular-nums; }
+/* El camino: seis paradas unidas por un trazo que se va completando con el recorrido. */
+.exhibit__steps { --trail: 0; position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); width: clamp(360px, 50vw, 660px); }
+.exhibit__trail { position: absolute; left: calc(100% / 14); right: calc(100% / 14); top: calc(22px - 1px); height: 2px; background: rgb(238 245 255 / 0.18); border-radius: 2px; pointer-events: none; }
+.exhibit__trail-fill { position: absolute; inset: 0; background: linear-gradient(90deg, #f36960, #ff948a); border-radius: inherit; transform: scaleX(var(--trail)); transform-origin: left; }
+.exhibit__trail-marker { position: absolute; top: 50%; left: calc(var(--trail) * 100%); width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; border: 1.5px solid #f36960; background: rgb(25 28 32 / 0.55); box-shadow: 0 0 14px rgb(243 105 96 / 0.55); }
+.exhibit__steps button { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 5px; min-width: 0; min-height: 50px; padding-top: 17px; color: #a9afae; font-size: 0.67rem; transition: color 180ms var(--ease); }
+.exhibit__stop { position: relative; z-index: 1; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #a9afae; background: #191c20; transition: transform 300ms var(--ease), background-color 300ms var(--ease), border-color 300ms var(--ease); }
+.exhibit__steps button[data-passed] .exhibit__stop { background: #f36960; border-color: #f36960; }
+.exhibit__steps button[aria-current='step'] .exhibit__stop { transform: scale(1.5); border-color: #fff; background: #191c20; }
+.exhibit__step-num { display: none; font-size: 0.65rem; font-variant-numeric: tabular-nums; }
+.exhibit__step-label { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; opacity: 0.7; transition: opacity 180ms var(--ease); }
 .exhibit__steps button[aria-current='step'] { color: #fff; }
-.exhibit__steps button[aria-current='step'] > span:first-child { color: #ff948a; }
+.exhibit__steps button[aria-current='step'] .exhibit__step-num { color: #ff948a; }
+.exhibit__steps button[aria-current='step'] .exhibit__step-label { opacity: 1; }
 .exhibit__arrows { display: flex; gap: 8px; }
 .exhibit__arrows button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgb(210 226 255 / 0.25); border-radius: 50%; transition: background 180ms var(--ease); }
 .exhibit__arrows button:disabled { opacity: 0.25; cursor: default; }
@@ -105,15 +95,6 @@
   .exhibit__hotspot { right: 8%; }
 }
 @media (max-width: 767px) {
-  .exhibit__architecture { inset: calc(72px + env(safe-area-inset-top)) -1% -2%; }
-  .exhibit__backdrop { object-position: 65% center; }
-  .exhibit__set--hall .exhibit__backdrop { object-position: 77% top; }
-  .exhibit__set--care .exhibit__backdrop { object-position: 60% center; }
-  .exhibit__set--fashion .exhibit__backdrop { width: 100%; right: 0; object-position: 50% 18%; }
-  .exhibit__portrait-companion { display: none; }
-  .exhibit__room-shade { background: linear-gradient(0deg, rgb(25 28 32 / 0.95) 10%, rgb(25 28 32 / 0.15) 65%, transparent); }
-  .exhibit__set--hall .exhibit__room-shade, .exhibit__set--archive .exhibit__room-shade, .exhibit__set--fashion .exhibit__room-shade { background: linear-gradient(0deg, #191c20 12%, rgb(25 28 32 / 0.86) 32%, transparent 76%); }
-  .exhibit__set--care .exhibit__room-shade, .exhibit__set--space .exhibit__room-shade, .exhibit__set--river .exhibit__room-shade { background: linear-gradient(0deg, rgb(25 28 32 / 0.96), rgb(25 28 32 / 0.08) 75%); }
   .exhibit__copy { left: 22px; right: 22px; width: auto; top: auto; bottom: 162px; transform: none; padding: 0; }
   .exhibit__title, .exhibit__title--intro { font-size: clamp(2.5rem, 10.7vw, 3.7rem); max-width: 11ch; }
   .exhibit__title--intro { font-size: clamp(2.2rem, 9vw, 3.2rem); }
@@ -127,9 +108,9 @@
   .exhibit__hotspot { left: 22px; right: auto; bottom: 100px; gap: 10px; font-size: 0.72rem; }
   .exhibit__hotspot-plus { width: 36px; height: 36px; box-shadow: 0 0 0 5px rgb(175 202 255 / 0.06); }
   .exhibit__controls { bottom: calc(40px + env(safe-area-inset-bottom)); gap: 14px; }
-  .exhibit__steps { justify-content: space-between; flex: 1; gap: 4px; }
-  .exhibit__steps button { justify-content: center; min-width: 26px; min-height: 40px; }
-  .exhibit__steps button[aria-current='step'] { border-bottom: 2px solid #f36960; }
+  .exhibit__steps { flex: 1; width: auto; min-width: 0; }
+  .exhibit__steps button { min-height: 44px; }
+  .exhibit__step-num { display: block; }
   .exhibit__step-label { display: none; }
   .exhibit__arrows { gap: 6px; }
   .exhibit__arrows button { width: 34px; height: 34px; }

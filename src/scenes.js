@@ -1,4 +1,4 @@
-import { marca } from './content.js'
+import { giftCard, marca } from './content.js'
 
 // Escenografía conceptual: no representa las instalaciones ni al equipo real.
 // Los datos de contacto se mantienen centralizados en content.js.
@@ -58,6 +58,15 @@ export const scenes = [
       { title: 'Ajuste y reparación', text: 'Revisamos el apoyo, las patillas y las bisagras. Evaluamos cada reparación según el material, las piezas y el estado del armazón.' },
       { title: 'Multifocales', text: 'Acompañamos el uso y la adaptación, con espacio para preguntar, volver y revisar la comodidad. Cada caso necesita una evaluación personal.' },
     ],
+  },
+  {
+    id: 'regalos', label: 'Regalos', room: 'gift', image: '/img/regalo-giftcard.webp',
+    alt: 'Tarjeta de regalo negra con letras doradas, apoyada sobre una piedra travertino con cintas de satén dorado',
+    title: 'Regalá otra forma de ver.',
+    intro: 'Gift Card Schellhas.',
+    description: giftCard.texto,
+    light: '#ffffff',
+    details: [],
   },
   {
     id: 'contacto', label: 'Paraná, siempre', room: 'river', image: '/img/parana-desde-el-rio.webp',

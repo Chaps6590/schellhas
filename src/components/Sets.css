@@ -1,0 +1,127 @@
+/* Composiciones de cada escena. Las fotos llegan hasta el borde superior: la barra de navegación es transparente. */
+
+.exhibit__look { position: absolute; inset: 0; will-change: transform; }
+.exhibit__set { position: absolute; inset: 0; overflow: hidden; visibility: hidden; }
+.exhibit__set:first-child { visibility: visible; }
+.exhibit__bg { position: absolute; inset: 0; background: #191c20; }
+.exhibit__layer { position: absolute; overflow: hidden; background: #242a2d; }
+.exhibit__layer img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.exhibit__shade { position: absolute; inset: 0; pointer-events: none; }
+
+/* Escrim superior: asegura la lectura de la barra transparente sobre cualquier foto. */
+.exhibit__vignette { background: linear-gradient(180deg, rgb(25 28 32 / 0.62), rgb(25 28 32 / 0) 19%, transparent 65%, rgb(25 28 32 / 0.9)), radial-gradient(ellipse at 60% 45%, transparent 40%, rgb(25 28 32 / 0.25)); }
+
+/* 01 · Retrato a sangre */
+.exhibit__layer--photo { inset: 0; }
+/* La foto original casi no tiene aire sobre la cabeza: se baja un poco y su borde superior se funde con la barra. */
+.exhibit__set--hall .exhibit__layer--photo { top: 6vh; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 11vh); mask-image: linear-gradient(180deg, transparent 0, #000 11vh); }
+.exhibit__set--hall .exhibit__layer--photo img { object-position: 60% 0%; }
+.exhibit__set--hall .exhibit__shade { background: linear-gradient(90deg, rgb(25 28 32 / 0.34), transparent 60%); }
+
+/* 02 · Collage */
+.exhibit__set--archive [data-layer='a'] { left: 50vw; right: 6vw; top: 13vh; bottom: 20vh; }
+.exhibit__set--archive [data-layer='b'] { left: 36vw; width: 19vw; aspect-ratio: 4 / 3; bottom: 15vh; border: 6px solid #191c20; }
+.exhibit__set--archive [data-layer='c'] { right: 2.5vw; width: 11.5vw; aspect-ratio: 1; bottom: 18vh; border: 6px solid #191c20; }
+
+.exhibit__set--archive [data-layer='b'] img { object-position: 40% 28%; }
+.exhibit__set--archive [data-layer='c'] img { object-position: 70% 55%; }
+
+/* 03 · Galería de tres paneles */
+.exhibit__set--fashion [data-layer='p1'] { left: 50vw; width: 15.4vw; top: 17vh; bottom: 16vh; }
+.exhibit__set--fashion [data-layer='p2'] { left: 67vw; width: 15.4vw; top: 10vh; bottom: 22vh; }
+.exhibit__set--fashion [data-layer='p3'] { left: 84vw; width: 15.4vw; top: 24vh; bottom: 14vh; }
+.exhibit__set--fashion [data-layer] img { object-position: 50% 30%; }
+
+/* 04 · Ventana al espacio */
+.exhibit__set--space .exhibit__shade { background: linear-gradient(90deg, rgb(25 28 32 / 0.78), rgb(25 28 32 / 0.08) 62%); }
+
+/* 05 · Foto grande y lente circular */
+.exhibit__set--care [data-layer='a'] { left: 38vw; right: 0; top: 0; bottom: 0; }
+.exhibit__set--care .exhibit__shade { background: linear-gradient(90deg, #191c20 36%, rgb(25 28 32 / 0.7) 47%, transparent 72%); }
+.exhibit__set--care [data-layer='lens'] { left: 49vw; top: 44vh; width: min(24vw, 340px); aspect-ratio: 1; border-radius: 50%; border: 8px solid #191c20; box-shadow: 0 30px 80px rgb(0 0 0 / 0.5); }
+
+/* 06 · Regalos */
+.exhibit__set--gift .exhibit__shade { background: linear-gradient(90deg, #191c20 0%, rgb(25 28 32 / 0.55) 30%, transparent 55%); }
+.exhibit__set--gift [data-layer='bgimg'] { left: 24vw; right: 0; top: 0; bottom: 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%); mask-image: linear-gradient(90deg, transparent, #000 22%); }
+.exhibit__set--gift [data-layer='bgimg'] img { object-position: 50% 56%; }
+
+/* En Regalos el degradé inferior se atenúa para no opacar la foto. */
+.exhibit__vignette { transition: opacity 600ms var(--ease); }
+.exhibit__viewport[data-active='5'] .exhibit__vignette { opacity: 0.4; }
+
+/* ---------- Formulario de la Gift Card (dentro de la columna de texto) ---------- */
+.gform { --gold: #d9b26b; display: grid; gap: 14px; width: min(100%, 420px); margin-top: 26px; }
+.gform__preview { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 14px 18px; border: 1px solid rgb(217 178 107 / 0.45); border-radius: 4px; background: rgb(14 13 12 / 0.7); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.gform__para { display: flex; flex-direction: column; min-width: 0; font-family: var(--font-display); font-size: 1.45rem; font-style: italic; color: var(--gold); line-height: 1.15; }
+.gform__para small { font-family: var(--font-body); font-style: normal; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: #c5cbc8; margin-bottom: 4px; }
+.gform__para b { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gform__para .is-empty { opacity: 0.55; }
+.gform__monto { font-family: var(--font-display); font-size: 1.9rem; font-weight: 600; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; animation: gform-bump 450ms var(--ease); }
+@keyframes gform-bump { from { opacity: 0; translate: 0 10px; scale: 0.94; } to { opacity: 1; translate: 0 0; scale: 1; } }
+.gform__field { position: relative; display: grid; font-size: 0.78rem; color: #d5d5d2; }
+.gform__field > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.gform__field input { height: 46px; padding: 0 14px; border: 1px solid rgb(210 217 211 / 0.32); border-radius: 4px; background: rgb(25 28 32 / 0.62); color: #fff; font: inherit; font-size: 0.95rem; transition: border-color 200ms var(--ease), background-color 200ms var(--ease); }
+.gform__field input::placeholder { color: #8f9694; }
+.gform__field input:focus { border-color: var(--gold); background: rgb(25 28 32 / 0.85); }
+.gform__montos { position: relative; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.gform__montos legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.gform__montos button { min-height: 42px; padding: 0 15px; border: 1px solid rgb(210 217 211 / 0.35); border-radius: 999px; background: rgb(25 28 32 / 0.4); font-size: 0.82rem; font-variant-numeric: tabular-nums; color: #e7e7e4; transition: background-color 200ms var(--ease), color 200ms var(--ease), border-color 200ms var(--ease), scale 160ms var(--ease); }
+.gform__montos button[aria-pressed='true'] { background: var(--gold); border-color: var(--gold); color: #191c20; }
+.gform__montos button:active { scale: 0.95; }
+.gform__cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; border-radius: 3px; background: var(--gold); color: #191c20; font-size: 0.92rem; font-weight: 500; transition: background-color 200ms var(--ease), scale 160ms var(--ease); }
+.gform__cta:active { scale: 0.98; }
+.gform__note { font-size: 0.72rem; color: #bcbfbe; }
+@media (hover: hover) and (pointer: fine) {
+  .gform__montos button[aria-pressed='false']:hover { border-color: #fff; color: #fff; }
+  .gform__cta:hover { background: #e8c685; }
+}
+@media (max-height: 760px) and (min-width: 768px) {
+  .gform { gap: 10px; margin-top: 16px; }
+  .gform__field input { height: 40px; }
+  .gform__montos button { min-height: 36px; }
+  .gform__cta { min-height: 44px; }
+  .gform__note { display: none; }
+  .exhibit__copy--gift .exhibit__description { display: none; }
+}
+
+/* 07 · Panorámica del río */
+.exhibit__layer--pano { background: #191c20; }
+.exhibit__layer--pano img { width: 150%; max-width: none; object-position: 40% 50%; }
+.exhibit__set--river .exhibit__shade { background: linear-gradient(90deg, rgb(25 28 32 / 0.88), rgb(25 28 32 / 0.18) 75%); }
+
+@media (max-width: 767px) {
+  .exhibit__shade { background: linear-gradient(0deg, rgb(25 28 32 / 0.96) 8%, rgb(25 28 32 / 0.2) 62%, transparent) !important; }
+
+  .exhibit__set--hall .exhibit__layer--photo img { object-position: 77% top; }
+
+  .exhibit__set--archive [data-layer='a'] { left: 6vw; right: 6vw; top: 12vh; bottom: auto; height: 38vh; }
+  .exhibit__set--archive [data-layer='b'] { left: 3vw; top: calc(12vh + 26vh); bottom: auto; width: 36vw; }
+  .exhibit__set--archive [data-layer='c'] { right: 3vw; top: calc(12vh + 30vh); bottom: auto; width: 24vw; }
+
+  .exhibit__set--fashion [data-layer='p1'] { left: 4vw; width: 30vw; top: 15vh; bottom: auto; height: 38vh; }
+  .exhibit__set--fashion [data-layer='p2'] { left: 35vw; width: 30vw; top: 10vh; bottom: auto; height: 38vh; }
+  .exhibit__set--fashion [data-layer='p3'] { left: 66vw; width: 30vw; top: 19vh; bottom: auto; height: 38vh; }
+
+  .exhibit__set--space .exhibit__layer--photo img { object-position: 65% center; }
+
+  .exhibit__set--care [data-layer='a'] { left: 0; top: 0; }
+  .exhibit__set--care [data-layer='a'] img { object-position: 60% center; }
+  .exhibit__set--care [data-layer='lens'] { left: auto; right: 8vw; top: 24vh; width: 38vw; border-width: 6px; }
+
+  .exhibit__set--river .exhibit__layer--pano img { width: 260%; object-position: 40% 50%; }
+
+  .exhibit__set--gift [data-layer='bgimg'] { left: 0; right: 0; top: 0; bottom: 38vh; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); mask-image: linear-gradient(180deg, #000 72%, transparent); }
+  .exhibit__set--gift [data-layer='bgimg'] img { object-position: 58% 50%; }
+  .exhibit__copy--gift { bottom: 150px; }
+  .exhibit__copy--gift .exhibit__description, .gform__note, .gform__field > span { display: none; }
+  .exhibit__copy--gift .exhibit__title { font-size: clamp(2rem, 8.4vw, 2.7rem); max-width: 14ch; }
+  .exhibit__copy--gift .exhibit__intro { margin-bottom: 8px; }
+  .gform { gap: 8px; margin-top: 12px; width: 100%; }
+  .gform__preview { padding: 9px 14px; }
+  .gform__para { font-size: 1.1rem; }
+  .gform__monto { font-size: 1.4rem; }
+  .gform__field input { height: 40px; }
+  .gform__montos { flex-wrap: nowrap; justify-content: space-between; gap: 6px; }
+  .gform__montos button { flex: 1; min-width: 0; padding: 0 2px; min-height: 36px; font-size: 0.68rem; }
+  .gform__cta { min-height: 44px; }
+}

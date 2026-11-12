@@ -8,8 +8,16 @@ const WA = waLink('Hola! Les escribo desde la web.')
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
+  const [current, setCurrent] = useState('inicio')
   const dialogRef = useRef(null)
   const toggleRef = useRef(null)
+
+  // El recorrido avisa en qué parada está para marcarla en el menú.
+  useEffect(() => {
+    const onScene = event => setCurrent(event.detail)
+    window.addEventListener('schellhas:scene', onScene)
+    return () => window.removeEventListener('schellhas:scene', onScene)
+  }, [])
 
   function navigate(event, id) {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
@@ -56,7 +64,7 @@ export default function Nav() {
 
           <nav className="nav__links" aria-label="Secciones">
             {nav.map((item) => (
-              <a key={item.id} href={`#${item.id}`} onClick={event => navigate(event, item.id)}>
+              <a key={item.id} href={`#${item.id}`} aria-current={current === item.id ? 'location' : undefined} onClick={event => navigate(event, item.id)}>
                 {item.label}
               </a>
             ))}
@@ -95,10 +103,12 @@ export default function Nav() {
               </button>
             </div>
             <nav className="menu__links wrap" aria-label="Secciones">
-              {nav.map((item) => (
+              {nav.map((item, index) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
+                  style={{ '--n': index }}
+                  aria-current={current === item.id ? 'location' : undefined}
                   onClick={event => navigate(event, item.id)}
                 >
                   {item.label}
